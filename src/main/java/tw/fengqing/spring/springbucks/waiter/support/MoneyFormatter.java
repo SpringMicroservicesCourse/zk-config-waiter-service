@@ -5,6 +5,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.springframework.format.Formatter;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -13,11 +14,11 @@ import java.util.Locale;
 @Component
 public class MoneyFormatter implements Formatter<Money> {
     /**
-     * 处理 TWD 10.00 / 10.00 形式的字符串
+     * 處理 TWD 10.00 / 10.00 形式的字串
      * 校驗不太嚴密，僅作演示
      */
     @Override
-    public Money parse(String text, Locale locale) throws ParseException {
+    public Money parse(@NonNull String text, @NonNull Locale locale) throws ParseException {
         if (NumberUtils.isParsable(text)) {
             return Money.of(CurrencyUnit.of("TWD"), NumberUtils.createBigDecimal(text));
         } else if (StringUtils.isNotEmpty(text)) {
